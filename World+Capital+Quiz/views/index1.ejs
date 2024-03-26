@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital City Quiz</title>
+    <link rel="stylesheet" href ="/styles/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+
+
+<body id="app" class=" <%= condition ? 'game-over' : 'main' %>" >
+    <form class="container" action="/submit" method="post" > 
+    
+        
+    <div class="horizontal-container" >    
+        <h3>
+            <span id="score">
+            Total Score: 
+            <%= locals.totalScore ? totalScore : "0" %>
+            </span>
+        </h3>
+        <h3>
+            <span id="hearts">
+                Hearts:  <%= locals.lives  %>
+            </span>
+        </h3>
+    </div>   
+
+    <% if(locals.question) { %>
+        <h1 id="countryName">
+                <%= question.country  %>
+            </h1> 
+       <% } %> 
+       
+
+        <div class="answer-container">
+            <input type="text" name="answer" id="userInput" placeholder="Enter the capital" autofocus autocomplete="off" >
+        </div>
+
+        <div class="feedback-container">
+            <% if(locals.message) { %>
+                <h4> 
+                <%= message%>
+                 </h4>
+                    <!-- this is to hold the question generated from  -->
+                <% } else{ %>
+                    <h4 > click submit  </h4> 
+           <% } %> 
+        </div>   
+
+        <% if(locals.condition===false) { %>
+        <button type="submit"> Submit <% if(locals.wasCorrect){ %>
+            <span class="checkmark">✔</span>
+            <% } else if (locals.wasCorrect===false) { %>
+              <button id="hintButton"> Hint </button>  
+              <span class="cross" id="error">✖</span>
+              <h4> HINT THE CAPITAL HAS LETTER :  <%= hint %></h4>
+              <% } %>
+        <% } %>
+
+        <% if(locals.condition === true){ %> 
+            <button id="restart-button"> <a href="/">Restart</a>
+                </button>
+                <% } %>
+        </button>
+                  
+    </form>
+
+ 
+    
+
+
+    <%- include("partials/footer.ejs") %>
+    <script src="../index1_copy.js" charset="utf-8"></script>
+</body>
+</html>
